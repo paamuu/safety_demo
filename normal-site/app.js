@@ -67,10 +67,11 @@ app.post('/transfer', (req, res) => {
 
 // 添加余额查询接口
 app.get('/balance', (req, res) => {
-    if (!req.session.loggedIn) {
-        return res.status(401).send('未登录');
-    }
-    const balance = users[req.session.username].balance;
+    console.log(req.headers.referer,'reference-balance')
+    // if (!req.session.loggedIn) {
+    //     return res.status(401).send('未登录');
+    // }
+    const balance = users[req.session.username]?.balance ||5000;
     res.json({ balance });
 });
 

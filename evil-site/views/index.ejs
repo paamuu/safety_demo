@@ -61,16 +61,20 @@
         function submitForm() {
             document.getElementById('csrf-form').submit();
         }
-        // 添加GET请求的CSRF攻击
+        // 添加GET请求的CSRF攻击，这里是跨域请求后台可以处理成功但是浏览器端是不按照正常逻辑处理
         fetch('http://dev.test.com/balance', {
             method: 'GET',
             credentials: 'include'  // 包含cookies
         })
         .then(response => response.json())
         .then(data => {
+            console.log(data,'data-balance');
+            
             document.getElementById('balance').textContent = `¥ ${data.balance}`;
         })
         .catch(error => {
+            console.log(error,'error-balance');
+            
             document.getElementById('balance').textContent = '获取失败';
             console.error('Error:', error);
         });
