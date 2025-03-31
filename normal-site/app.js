@@ -15,7 +15,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
     secret: 'normal-site-secret',
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+        secure: true, // 只在HTTPS下发送cookie
+        httpOnly: true, // 防止JavaScript访问cookie
+        sameSite: 'strict' // 防止CSRF攻击
+    }
 }));
 
 // 模拟用户数据
